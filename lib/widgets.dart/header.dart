@@ -44,12 +44,11 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.only(top: 40),
       child: Column(
         children: [
           Text(
             "F-Drive",
-            style: textStyle(25, textColor, FontWeight.bold),
+            style: textStyle(28, textColor, FontWeight.bold),
           ),
           SizedBox(
             height: 20,
@@ -72,17 +71,14 @@ class Header extends StatelessWidget {
                     blurRadius: 10)
               ],
             ),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: tabCell("Storage", true, context),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: tabCell("Files", false, context),
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                children: [
+                  tabCell("Storage", true, context),
+                  tabCell("Files", false, context),
+                ],
+              ),
             ),
           )
         ],
