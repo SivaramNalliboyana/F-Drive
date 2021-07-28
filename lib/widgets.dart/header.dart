@@ -1,11 +1,15 @@
+import 'package:fdrive/controllers/navigation_controller.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Header extends StatelessWidget {
+  NavigationController controller = Get.put(NavigationController());
+
   Container tabCell(String text, bool selected, BuildContext context) {
     return selected
         ? Container(
-            width: MediaQuery.of(context).size.width * 0.45,
+            width: MediaQuery.of(context).size.width * 0.45 - 5,
             height: 60,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
@@ -29,7 +33,7 @@ class Header extends StatelessWidget {
             ),
           )
         : Container(
-            width: MediaQuery.of(context).size.width * 0.3,
+            width: MediaQuery.of(context).size.width * 0.45 - 5,
             height: 60,
             child: Center(
               child: Text(
@@ -54,33 +58,42 @@ class Header extends StatelessWidget {
             height: 20,
           ),
           Container(
-            width: MediaQuery.of(context).size.width - 40,
-            margin: EdgeInsets.only(left: 20),
-            height: 60,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.grey.shade100,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.03),
-                    offset: Offset(10, 10),
-                    blurRadius: 10),
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.03),
-                    offset: Offset(-10, 10),
-                    blurRadius: 10)
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Row(
-                children: [
-                  tabCell("Storage", true, context),
-                  tabCell("Files", false, context),
+              width: MediaQuery.of(context).size.width - 40,
+              margin: EdgeInsets.only(left: 20),
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey.shade100,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      offset: Offset(10, 10),
+                      blurRadius: 10),
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.03),
+                      offset: Offset(-10, 10),
+                      blurRadius: 10)
                 ],
               ),
-            ),
-          )
+              child: Obx(
+                () => Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Row(
+                    children: [
+                      InkWell(
+                        onTap: () => controller.changeTab("Storage"),
+                        child: tabCell("Storage",
+                            controller.tab.value == "Storage", context),
+                      ),
+                      InkWell(
+                        onTap: () => controller.changeTab("Files"),
+                        child: tabCell(
+                            "Files", controller.tab.value == "Files", context),
+                      ),
+                    ],
+                  ),
+                ),
+              ))
         ],
       ),
     );

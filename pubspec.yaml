@@ -22,6 +22,8 @@ environment:
 
 dependencies:
   google_fonts:
+  eva_icons_flutter:
+  get: 4.2.0
   flutter:
     sdk: flutter
 

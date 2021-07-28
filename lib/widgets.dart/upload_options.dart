@@ -1,47 +1,44 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 
 class UploadOptions extends StatelessWidget {
-  Widget colouredContainer(Color bgcolor, Image child) {
+  Widget colouredContainer(Color bgcolor, Icon icon) {
     return Container(
       width: 55,
       height: 55,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15), color: bgcolor),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(right: 5.0),
-          child: child,
-        ),
-      ),
+      child: Center(child: icon),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Row(
-          children: [
-            colouredContainer(
-              Colors.lightBlue.withOpacity(0.3),
-              Image.asset(
-                'images/image.png',
-                width: 45,
-                height: 45,
-                fit: BoxFit.cover,
-              ),
-            ),
-            colouredContainer(
-              Colors.pink.withOpacity(0.3),
-              Image.asset(
-                'images/play.png',
-                width: 32,
-                height: 32,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
-        )
+        colouredContainer(
+          Colors.lightBlue.withOpacity(0.2),
+          Icon(
+            Icons.image,
+            color: Colors.cyan,
+            size: 35,
+          ),
+        ),
+        colouredContainer(
+          Colors.pink.withOpacity(0.3),
+          Icon(Icons.play_arrow_rounded,
+              color: Colors.pink.withOpacity(0.5), size: 45),
+        ),
+        colouredContainer(
+          Colors.blue.withOpacity(0.4),
+          Icon(EvaIcons.fileText,
+              color: Colors.indigoAccent.withOpacity(0.5), size: 35),
+        ),
+        colouredContainer(
+          Colors.purple.withOpacity(0.2),
+          Icon(EvaIcons.music, color: Colors.pink.withOpacity(0.3), size: 35),
+        ),
       ],
     );
   }
