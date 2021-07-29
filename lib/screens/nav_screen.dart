@@ -26,7 +26,7 @@ class NavScreen extends StatelessWidget {
             Header(),
             Obx(
               () => Get.find<NavigationController>().tab.value == "Storage"
-                  ? Text("His")
+                  ? StorageScreen()
                   : FilesScreen(),
             )
           ],
