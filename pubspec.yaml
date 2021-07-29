@@ -24,6 +24,7 @@ dependencies:
   google_fonts:
   eva_icons_flutter:
   get: 4.2.0
+  simple_shadow:
   flutter:
     sdk: flutter
 

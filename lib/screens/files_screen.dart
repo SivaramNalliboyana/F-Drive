@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:simple_shadow/simple_shadow.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -61,8 +63,8 @@ class FilesScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: 4,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, crossAxisSpacing: 20, mainAxisSpacing: 20),
               itemBuilder: (context, index) {
                 return Container(
                   decoration: BoxDecoration(
@@ -70,19 +72,24 @@ class FilesScreen extends StatelessWidget {
                     color: Colors.grey.shade100,
                     boxShadow: [
                       BoxShadow(
-                          color: Colors.grey.withOpacity(0.001),
+                          color: Colors.grey.withOpacity(0.00001),
                           offset: Offset(10, 10),
-                          blurRadius: 10),
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.001),
-                          offset: Offset(-10, 10),
-                          blurRadius: 10)
+                          blurRadius: 5),
                     ],
                   ),
                   child: Column(
                     children: [
-                      Image(
-                        image: AssetImage('images/folder.png'),
+                      SimpleShadow(
+                        opacity: 0.7,
+                        color: Colors.grey,
+                        offset: Offset(5, 5),
+                        sigma: 5,
+                        child: Image.asset(
+                          'images/folder.png',
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
                       )
                     ],
                   ),
