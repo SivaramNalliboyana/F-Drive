@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -78,23 +79,40 @@ class FilesScreen extends StatelessWidget {
                     ],
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SimpleShadow(
-                        opacity: 0.7,
-                        color: Colors.grey,
-                        offset: Offset(5, 5),
-                        sigma: 5,
-                        child: Image.asset(
-                          'images/folder.png',
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        ),
+                      Image.asset(
+                        'images/folder.png',
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                      Text(
+                        "4k movies",
+                        style: textStyle(18, textColor, FontWeight.bold),
+                      ),
+                      Text(
+                        "911 Items",
+                        style: textStyle(14, Colors.grey[400], FontWeight.bold),
                       )
                     ],
                   ),
                 );
               },
+            ),
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.redAccent[200],
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                  size: 32,
+                ),
+              ),
             )
           ],
         ),
