@@ -29,7 +29,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   firebase_core:
-  image_picker:
+  file_picker:
   image:
   flutter_image_compress:
   flutter:

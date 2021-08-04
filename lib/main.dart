@@ -29,9 +29,7 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return controller.googleAccount.value == null
-          ? LoginScreen()
-          : NavScreen();
+      return controller.user.value == null ? LoginScreen() : NavScreen();
     });
   }
 }
