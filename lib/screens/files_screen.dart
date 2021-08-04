@@ -2,11 +2,44 @@ import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:fdrive/widgets.dart/folders_section.dart';
 import 'package:fdrive/widgets.dart/recent_files.dart';
-import 'package:simple_shadow/simple_shadow.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class FilesScreen extends StatelessWidget {
+  openAddFolderDialog(context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          actionsPadding: EdgeInsets.only(right: 10, bottom: 10),
+          title: Text(
+            "New folder",
+            style: textStyle(17, Colors.black, FontWeight.w600),
+          ),
+          content: TextFormField(
+            autofocus: true,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.grey[250],
+              hintText: "Untitled folder",
+              hintStyle: textStyle(16, Colors.grey, FontWeight.w500),
+            ),
+          ),
+          actions: [
+            Text(
+              "Cancel",
+              style: textStyle(16, textColor, FontWeight.bold),
+            ),
+            Text(
+              "Create",
+              style: textStyle(16, textColor, FontWeight.bold),
+            )
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -31,7 +64,59 @@ class FilesScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                      ),
+                      builder: (context) {
+                        return Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                  onTap: () => openAddFolderDialog(context),
+                                  child: Row(
+                                    children: [
+                                      Icon(EvaIcons.folderAdd,
+                                          color: Colors.grey, size: 32),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "Folder",
+                                        style: textStyle(
+                                            20, Colors.black, FontWeight.w600),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Upload",
+                                      style: textStyle(
+                                          20, Colors.black, FontWeight.w600),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Icon(EvaIcons.upload,
+                                        color: Colors.grey, size: 32),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                   child: Container(
                     width: 50,
                     height: 50,
