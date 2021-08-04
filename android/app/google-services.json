@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "8123814283",
+    "project_id": "fdrive-93e70",
+    "storage_bucket": "fdrive-93e70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8123814283:android:d474df12444e8403655f8e",
+        "android_client_info": {
+          "package_name": "com.fdrive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8123814283-b1atp5clnndkh73otmda34rea495rt0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fdrive",
+            "certificate_hash": "6284f31e0f3fa447375f45ab15556f6d5a4d5fc9"
+          }
+        },
+        {
+          "client_id": "8123814283-3hi66ukmiin3c7mi4r45hfm5ps6eussb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8qMqqOIbSn2zUAE9KlYCepK4QYN8JioU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8123814283-3hi66ukmiin3c7mi4r45hfm5ps6eussb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

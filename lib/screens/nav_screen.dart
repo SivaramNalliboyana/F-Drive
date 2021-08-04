@@ -3,8 +3,7 @@ import 'package:fdrive/screens/files_screen.dart';
 import 'package:fdrive/screens/storage_screen.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:fdrive/widgets.dart/header.dart';
-import 'package:fdrive/widgets.dart/storage_container.dart';
-import 'package:fdrive/widgets.dart/upload_options.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

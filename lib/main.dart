@@ -1,8 +1,14 @@
 import 'package:fdrive/screens/nav_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() {
+import 'controllers/authentication_controller.dart';
+import 'screens/login_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -12,7 +18,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: NavScreen(),
+      home: Root(),
     );
+  }
+}
+
+class Root extends StatelessWidget {
+  AuthController controller = Get.put(AuthController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      return controller.googleAccount.value == null
+          ? LoginScreen()
+          : NavScreen();
+    });
   }
 }
