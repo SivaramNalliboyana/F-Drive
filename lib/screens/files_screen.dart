@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:fdrive/screens/nav_screen.dart';
 import 'package:fdrive/widgets.dart/folders_section.dart';
 import 'package:fdrive/widgets.dart/recent_files.dart';
 import 'package:fdrive/utils/utils.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,6 +61,18 @@ class FilesScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  selectFiles() async {
+    FilePickerResult result =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
+
+    if (result != null) {
+      List<File> files = result.paths.map((path) => File(path)).toList();
+      print(files[0].path);
+    } else {
+      print("Cancelled");
+    }
   }
 
   @override
@@ -117,19 +131,22 @@ class FilesScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Upload",
-                                      style: textStyle(
-                                          20, Colors.black, FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Icon(EvaIcons.upload,
-                                        color: Colors.grey, size: 32),
-                                  ],
+                                InkWell(
+                                  onTap: () => selectFiles(),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "Upload",
+                                        style: textStyle(
+                                            20, Colors.black, FontWeight.w600),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Icon(EvaIcons.upload,
+                                          color: Colors.grey, size: 32),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
