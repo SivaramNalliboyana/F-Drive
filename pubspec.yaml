@@ -30,6 +30,7 @@ dependencies:
   cloud_firestore:
   firebase_core:
   file_picker:
+  mime:
   image:
   flutter_image_compress:
   flutter:

@@ -12,7 +12,12 @@ class FoldersController extends GetxController {
   void onInit() {
     super.onInit();
     foldersList.bindStream(
-      userCollection.doc(uid).collection('folders').snapshots().map(
+      userCollection
+          .doc(uid)
+          .collection('folders')
+          .orderBy('time', descending: true)
+          .snapshots()
+          .map(
         (QuerySnapshot query) {
           List<FolderModel> folders = [];
           query.docs.forEach((element) {
