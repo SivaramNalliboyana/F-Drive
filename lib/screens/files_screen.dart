@@ -1,11 +1,16 @@
 import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fdrive/screens/nav_screen.dart';
 import 'package:fdrive/widgets.dart/folders_section.dart';
 import 'package:fdrive/widgets.dart/recent_files.dart';
 import 'package:fdrive/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FilesScreen extends StatelessWidget {
+  TextEditingController folderController = TextEditingController();
+
   openAddFolderDialog(context) {
     return showDialog(
       context: context,
@@ -17,7 +22,9 @@ class FilesScreen extends StatelessWidget {
             style: textStyle(17, Colors.black, FontWeight.w600),
           ),
           content: TextFormField(
+            controller: folderController,
             autofocus: true,
+            style: textStyle(16, Colors.black, FontWeight.w500),
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.grey[250],
@@ -26,13 +33,27 @@ class FilesScreen extends StatelessWidget {
             ),
           ),
           actions: [
-            Text(
-              "Cancel",
-              style: textStyle(16, textColor, FontWeight.bold),
+            InkWell(
+              onTap: () => Get.offAll(NavScreen()),
+              child: Text(
+                "Cancel",
+                style: textStyle(16, textColor, FontWeight.bold),
+              ),
             ),
-            Text(
-              "Create",
-              style: textStyle(16, textColor, FontWeight.bold),
+            InkWell(
+              onTap: () {
+                userCollection
+                    .doc(FirebaseAuth.instance.currentUser.uid)
+                    .collection('folders')
+                    .add(
+                  {'name': folderController.text, 'time': DateTime.now()},
+                );
+                Get.offAll(NavScreen());
+              },
+              child: Text(
+                "Create",
+                style: textStyle(16, textColor, FontWeight.bold),
+              ),
             )
           ],
         );
