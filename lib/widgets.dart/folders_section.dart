@@ -34,8 +34,8 @@ class FoldersSection extends StatelessWidget {
                     children: [
                       Image.asset(
                         'images/folder.png',
-                        width: 100,
-                        height: 100,
+                        width: 82,
+                        height: 82,
                         fit: BoxFit.cover,
                       ),
                       Text(

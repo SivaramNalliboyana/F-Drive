@@ -21,14 +21,14 @@ class RecentFiles extends StatelessWidget {
             itemCount: 5,
             itemBuilder: (context, index) {
               return Padding(
-                padding: const EdgeInsets.only(right: 15.0),
+                padding: const EdgeInsets.only(right: 13.0),
                 child: Column(
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(18),
                       child: Image(
-                        width: 70,
-                        height: 70,
+                        width: 65,
+                        height: 60,
                         image: NetworkImage(
                             'https://www.nyhabitat.com/de/blog/wp-content/uploads/2013/02/Times-Square-Manhattan-New-York-NYC-Kreuzung-Welt.jpg'),
                         fit: BoxFit.cover,

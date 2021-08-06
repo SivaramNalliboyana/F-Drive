@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,3 +15,5 @@ CollectionReference<Map<String, dynamic>> userCollection =
 
 CollectionReference<Map<String, dynamic>> folderCollection =
     FirebaseFirestore.instance.collection('folders');
+
+Reference filesbucket = FirebaseStorage.instance.ref("files");

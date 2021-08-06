@@ -7,8 +7,10 @@ import 'package:fdrive/widgets.dart/recent_files.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mime/mime.dart';
 
 class FilesScreen extends StatelessWidget {
   TextEditingController folderController = TextEditingController();
@@ -69,7 +71,36 @@ class FilesScreen extends StatelessWidget {
 
     if (result != null) {
       List<File> files = result.paths.map((path) => File(path)).toList();
-      print(files[0].path);
+
+      for (File file in files) {
+        int length = await userCollection
+            .doc(FirebaseAuth.instance.currentUser.uid)
+            .collection('files')
+            .get()
+            .then((value) => value.docs.length);
+        print("lenght is $length");
+        String fileType = lookupMimeType(file.path);
+        UploadTask uploadTask = FirebaseStorage.instance
+            .ref()
+            .child('files')
+            .child("File $length")
+            .putFile(file);
+        TaskSnapshot snapshot = await uploadTask.whenComplete(() {});
+        print("Snapshot is $snapshot");
+        int size =
+            await snapshot.ref.getData().then((value) => value.lengthInBytes);
+        String fileUrl = await snapshot.ref.getDownloadURL();
+        userCollection
+            .doc(FirebaseAuth.instance.currentUser.uid)
+            .collection('files')
+            .add({
+          "dateUploaded": DateTime.now(),
+          "fileUrl": fileUrl,
+          "fileType": fileType,
+          "size": size
+        });
+      }
+      Get.back();
     } else {
       print("Cancelled");
     }
@@ -156,8 +187,8 @@ class FilesScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    width: 50,
-                    height: 50,
+                    width: 45,
+                    height: 45,
                     decoration: BoxDecoration(
                         color: Colors.redAccent[200],
                         borderRadius: BorderRadius.circular(10)),
