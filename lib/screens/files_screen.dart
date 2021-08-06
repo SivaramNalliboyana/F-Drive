@@ -73,13 +73,17 @@ class FilesScreen extends StatelessWidget {
       List<File> files = result.paths.map((path) => File(path)).toList();
 
       for (File file in files) {
+        String fileType = lookupMimeType(file.path);
+
+        print(file.path);
         int length = await userCollection
             .doc(FirebaseAuth.instance.currentUser.uid)
             .collection('files')
             .get()
             .then((value) => value.docs.length);
         print("lenght is $length");
-        String fileType = lookupMimeType(file.path);
+
+        print(fileType);
         UploadTask uploadTask = FirebaseStorage.instance
             .ref()
             .child('files')
