@@ -36,6 +36,7 @@ dependencies:
   path_provider:
   uuid:  
   flutter_image_compress:
+  flutter_ffmpeg:
   flutter:
     sdk: flutter
 

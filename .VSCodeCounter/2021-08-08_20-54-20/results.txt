@@ -1,0 +1,44 @@
+Date : 2021-08-08 20:54:20
+Directory : c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib
+Total : 15 files,  873 codes, 1 comments, 56 blanks, all 930 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         15 |        873 |          1 |         56 |        930 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                     | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                        |         15 |        873 |          1 |         56 |        930 |
+| controllers                                                                                              |          3 |         64 |          0 |         11 |         75 |
+| models                                                                                                   |          1 |         15 |          0 |          4 |         19 |
+| screens                                                                                                  |          4 |        365 |          0 |         16 |        381 |
+| utils                                                                                                    |          1 |         14 |          0 |          6 |         20 |
+| widgets.dart                                                                                             |          5 |        386 |          0 |         13 |        399 |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                 | language | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\controllers\authentication_controller.dart | Dart     |         28 |          0 |          5 |         33 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\controllers\folders_controller.dart        | Dart     |         29 |          0 |          3 |         32 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\controllers\navigation_controller.dart     | Dart     |          7 |          0 |          3 |         10 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\main.dart                                  | Dart     |         29 |          1 |          6 |         36 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\models\folder_model.dart                   | Dart     |         15 |          0 |          4 |         19 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\screens\files_screen.dart                  | Dart     |        207 |          0 |          9 |        216 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\screens\login_screen.dart                  | Dart     |        101 |          0 |          2 |        103 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\screens\nav_screen.dart                    | Dart     |         34 |          0 |          3 |         37 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\screens\storage_screen.dart                | Dart     |         23 |          0 |          2 |         25 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\utils\utils.dart                           | Dart     |         14 |          0 |          6 |         20 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\widgets.dart\folders_section.dart          | Dart     |         60 |          0 |          2 |         62 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\widgets.dart\header.dart                   | Dart     |         98 |          0 |          4 |        102 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\widgets.dart\recent_files.dart             | Dart     |         52 |          0 |          2 |         54 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\widgets.dart\storage_container.dart        | Dart     |        133 |          0 |          2 |        135 |
+| c:\Users\nsiva\Desktop\fdrive - google drive clone\fdrive\lib\widgets.dart\upload_options.dart           | Dart     |         43 |          0 |          3 |         46 |
+| Total                                                                                                    |          |        873 |          1 |         56 |        930 |
++----------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

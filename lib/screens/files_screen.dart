@@ -9,11 +9,17 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:uuid/uuid.dart';
 
 class FilesScreen extends StatelessWidget {
   TextEditingController folderController = TextEditingController();
+  Uuid uuid = Uuid();
+  final FlutterFFmpeg flutterFFmpeg = FlutterFFmpeg();
 
   openAddFolderDialog(context) {
     return showDialog(
@@ -65,6 +71,30 @@ class FilesScreen extends StatelessWidget {
     );
   }
 
+  Future<File> compressFile(File file, String fileType) async {
+    if (fileType.contains('image') || fileType.contains('video')) {
+      if (fileType.contains('image')) {
+        Directory directory = await getTemporaryDirectory();
+        String targetpath =
+            directory.path + "/${uuid.v4().substring(0, 8)}.jpg";
+        File result = await FlutterImageCompress.compressAndGetFile(
+            file.path, targetpath,
+            quality: 75);
+        return result;
+      } else if (fileType.contains('video')) {
+        Directory directory = await getTemporaryDirectory();
+        String targetpath =
+            directory.path + "/${uuid.v4().substring(0, 8)}.mp4";
+        int compressedvideo = await flutterFFmpeg
+            .execute("-i ${file.path} -c:v mpeg4 $targetpath");
+        print(compressedvideo);
+        return File(targetpath);
+      }
+    } else {
+      return file;
+    }
+  }
+
   selectFiles() async {
     FilePickerResult result =
         await FilePicker.platform.pickFiles(allowMultiple: true);
@@ -76,6 +106,7 @@ class FilesScreen extends StatelessWidget {
         String fileType = lookupMimeType(file.path);
 
         print(file.path);
+        File compressedFile = await compressFile(file, fileType);
         int length = await userCollection
             .doc(FirebaseAuth.instance.currentUser.uid)
             .collection('files')
@@ -88,7 +119,7 @@ class FilesScreen extends StatelessWidget {
             .ref()
             .child('files')
             .child("File $length")
-            .putFile(file);
+            .putFile(compressedFile);
         TaskSnapshot snapshot = await uploadTask.whenComplete(() {});
         print("Snapshot is $snapshot");
         int size =
