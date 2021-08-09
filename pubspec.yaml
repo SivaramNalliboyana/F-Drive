@@ -37,6 +37,7 @@ dependencies:
   uuid:  
   flutter_image_compress:
   flutter_ffmpeg:
+  video_compress:
   flutter:
     sdk: flutter
 

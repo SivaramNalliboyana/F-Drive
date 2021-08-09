@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:fdrive/controllers/files_screen_controller.dart';
 import 'package:fdrive/screens/nav_screen.dart';
 import 'package:fdrive/widgets.dart/folders_section.dart';
 import 'package:fdrive/widgets.dart/recent_files.dart';
@@ -15,11 +16,13 @@ import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:video_compress/video_compress.dart';
 
 class FilesScreen extends StatelessWidget {
   TextEditingController folderController = TextEditingController();
   Uuid uuid = Uuid();
   final FlutterFFmpeg flutterFFmpeg = FlutterFFmpeg();
+  FilesScreenController controller = Get.put(FilesScreenController());
 
   openAddFolderDialog(context) {
     return showDialog(
@@ -82,13 +85,13 @@ class FilesScreen extends StatelessWidget {
             quality: 75);
         return result;
       } else if (fileType.contains('video')) {
-        Directory directory = await getTemporaryDirectory();
-        String targetpath =
-            directory.path + "/${uuid.v4().substring(0, 8)}.mp4";
-        int compressedvideo = await flutterFFmpeg
-            .execute("-i ${file.path} -c:v mpeg4 $targetpath");
-        print(compressedvideo);
-        return File(targetpath);
+        final info = await VideoCompress.compressVideo(
+          file.path,
+          quality: VideoQuality.MediumQuality,
+          deleteOrigin: false,
+        );
+        print(info.filesize);
+        return File(info.path);
       }
     } else {
       return file;
