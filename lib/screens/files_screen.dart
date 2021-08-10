@@ -108,7 +108,6 @@ class FilesScreen extends StatelessWidget {
       for (File file in files) {
         String fileType = lookupMimeType(file.path);
 
-        print(file.path);
         File compressedFile = await compressFile(file, fileType);
         int length = await userCollection
             .doc(FirebaseAuth.instance.currentUser.uid)
@@ -132,10 +131,11 @@ class FilesScreen extends StatelessWidget {
             .doc(FirebaseAuth.instance.currentUser.uid)
             .collection('files')
             .add({
-          "dateUploaded": DateTime.now(),
+          "fileName": file.path.split('/').last,
           "fileUrl": fileUrl,
           "fileType": fileType,
-          "size": size
+          "size": size,
+          "dateUploaded": DateTime.now(),
         });
       }
       Get.back();
@@ -154,13 +154,7 @@ class FilesScreen extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RecentFiles(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FoldersSection()
-                ],
+                children: [RecentFiles(), FoldersSection()],
               ),
             ),
             Align(

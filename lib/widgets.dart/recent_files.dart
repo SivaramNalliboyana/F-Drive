@@ -1,4 +1,5 @@
 import 'package:fdrive/controllers/files_screen_controller.dart';
+import 'package:fdrive/screens/view_file_screen.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,37 +28,49 @@ class RecentFiles extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 13.0),
-                    child: Column(
-                      children: [
-                        controller.recentFiles[index].fileType.contains('image')
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(18),
-                                child: Image(
-                                  width: 65,
-                                  height: 60,
-                                  image: NetworkImage(
-                                      controller.recentFiles[index].url),
-                                  fit: BoxFit.cover,
+                    child: InkWell(
+                      onTap: () =>
+                          Get.to(ViewFileScreen(controller.recentFiles[index])),
+                      child: Container(
+                        width: 65,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            controller.recentFiles[index].fileType
+                                    .contains('image')
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Image(
+                                      width: 65,
+                                      height: 60,
+                                      image: NetworkImage(
+                                          controller.recentFiles[index].url),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(18),
+                                    child: Image(
+                                      width: 65,
+                                      height: 60,
+                                      image: NetworkImage(
+                                          'https://www.nyhabitat.com/de/blog/wp-content/uploads/2013/02/Times-Square-Manhattan-New-York-NYC-Kreuzung-Welt.jpg'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(controller.recentFiles[index].name,
+                                style: textStyle(
+                                  13,
+                                  textColor,
+                                  FontWeight.w500,
                                 ),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(18),
-                                child: Image(
-                                  width: 65,
-                                  height: 60,
-                                  image: NetworkImage(
-                                      'https://www.nyhabitat.com/de/blog/wp-content/uploads/2013/02/Times-Square-Manhattan-New-York-NYC-Kreuzung-Welt.jpg'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                        SizedBox(
-                          height: 5,
+                                overflow: TextOverflow.ellipsis)
+                          ],
                         ),
-                        Text(
-                          "Home.jpg",
-                          style: textStyle(13, textColor, FontWeight.w500),
-                        )
-                      ],
+                      ),
                     ),
                   );
                 },
