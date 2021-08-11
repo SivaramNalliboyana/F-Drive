@@ -28,34 +28,48 @@ class OptionsScreen extends StatelessWidget {
         ),
       ),
       body: GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, childAspectRatio: 1.25),
         itemCount: 4,
         itemBuilder: (context, index) {
-          return Container(
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: Image(
-                    image: NetworkImage(
-                        'https://th.bing.com/th/id/OIP.g4H8CGswzyiMmgcY0ne60QHaL2?pid=ImgDet&rs=1'),
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    fit: BoxFit.cover,
+          return Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10, top: 15),
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2,
+              height: 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: Image(
+                      image: NetworkImage(
+                          'https://th.bing.com/th/id/OIP.g4H8CGswzyiMmgcY0ne60QHaL2?pid=ImgDet&rs=1'),
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                ListTile(
-                  title: Text(
-                    "Motivation.png",
-                    style: textStyle(14, textColor, FontWeight.bold),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Motivational quote.png",
+                          style: textStyle(13, textColor, FontWeight.bold),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.more_vert,
+                            color: Colors.black, size: 22),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.more_vert, color: Colors.black, size: 22),
-                    onPressed: () {},
-                  ),
-                )
-              ],
+                ],
+              ),
             ),
           );
         },
