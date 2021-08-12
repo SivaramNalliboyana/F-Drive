@@ -33,7 +33,7 @@ class OptionsScreen extends StatelessWidget {
         itemCount: 4,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10, top: 15),
+            padding: const EdgeInsets.only(left: 16.0, right: 10, top: 15),
             child: Container(
               width: MediaQuery.of(context).size.width / 2,
               height: 100,
