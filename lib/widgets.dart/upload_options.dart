@@ -1,12 +1,14 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:fdrive/screens/options_screen.dart';
+import 'package:fdrive/controllers/files_controller.dart';
+import 'package:fdrive/screens/display_files_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UploadOptions extends StatelessWidget {
   Widget colouredContainer(Color bgcolor, Icon icon, String option) {
     return InkWell(
-      onTap: () => Get.to(() => OptionsScreen(option)),
+      onTap: () => Get.to(() => DisplayFilesScreen(option),
+          binding: FilesBinding("Files", option)),
       child: Container(
         width: 50,
         height: 50,
@@ -29,7 +31,7 @@ class UploadOptions extends StatelessWidget {
               color: Colors.cyan,
               size: 30,
             ),
-            "Images"),
+            "image"),
         colouredContainer(
             Colors.pink.withOpacity(0.3),
             Icon(Icons.play_arrow_rounded,
