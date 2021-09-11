@@ -16,11 +16,12 @@ class FilesController extends GetxController {
   void onInit() {
     super.onInit();
     if (type == "Files") {
+      print(fileType);
       files.bindStream(
         userCollection
             .doc(uid)
             .collection('files')
-            .where('fileType', isEqualTo: "image/jpeg")
+            .where('fileType', isEqualTo: fileType)
             .snapshots()
             .map(
           (QuerySnapshot query) {
@@ -28,6 +29,7 @@ class FilesController extends GetxController {
             query.docs.forEach((element) {
               files.add(FileModel.fromDocumentSnapshot(element));
             });
+
             return files;
           },
         ),

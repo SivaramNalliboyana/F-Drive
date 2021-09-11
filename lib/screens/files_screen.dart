@@ -75,24 +75,21 @@ class FilesScreen extends StatelessWidget {
   }
 
   Future<File> compressFile(File file, String fileType) async {
-    if (fileType.contains('image') || fileType.contains('video')) {
-      if (fileType.contains('image')) {
-        Directory directory = await getTemporaryDirectory();
-        String targetpath =
-            directory.path + "/${uuid.v4().substring(0, 8)}.jpg";
-        File result = await FlutterImageCompress.compressAndGetFile(
-            file.path, targetpath,
-            quality: 75);
-        return result;
-      } else if (fileType.contains('video')) {
-        final info = await VideoCompress.compressVideo(
-          file.path,
-          quality: VideoQuality.MediumQuality,
-          deleteOrigin: false,
-        );
-        print(info.filesize);
-        return File(info.path);
-      }
+    if (fileType == 'image') {
+      Directory directory = await getTemporaryDirectory();
+      String targetpath = directory.path + "/${uuid.v4().substring(0, 8)}.jpg";
+      File result = await FlutterImageCompress.compressAndGetFile(
+          file.path, targetpath,
+          quality: 75);
+      return result;
+    } else if (fileType == 'video') {
+      final info = await VideoCompress.compressVideo(
+        file.path,
+        quality: VideoQuality.MediumQuality,
+        deleteOrigin: false,
+      );
+      print(info.filesize);
+      return File(info.path);
     } else {
       return file;
     }
@@ -107,8 +104,12 @@ class FilesScreen extends StatelessWidget {
 
       for (File file in files) {
         String fileType = lookupMimeType(file.path);
+        String end = "/";
+        int startIndex = 0;
+        int endIndex = fileType.indexOf(end);
+        String filteredFileType = fileType.substring(startIndex, endIndex);
 
-        File compressedFile = await compressFile(file, fileType);
+        File compressedFile = await compressFile(file, filteredFileType);
         int length = await userCollection
             .doc(FirebaseAuth.instance.currentUser.uid)
             .collection('files')
@@ -133,7 +134,7 @@ class FilesScreen extends StatelessWidget {
             .add({
           "fileName": file.path.split('/').last,
           "fileUrl": fileUrl,
-          "fileType": fileType,
+          "fileType": filteredFileType,
           "size": size,
           "dateUploaded": DateTime.now(),
         });
@@ -154,7 +155,10 @@ class FilesScreen extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [RecentFiles(), FoldersSection()],
+                children: [
+                  RecentFiles(),
+                  FoldersSection(),
+                ],
               ),
             ),
             Align(

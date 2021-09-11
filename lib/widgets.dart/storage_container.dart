@@ -1,5 +1,6 @@
 import 'package:fdrive/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:mime/mime.dart';
 
 class StorageContainer extends StatelessWidget {
   @override
@@ -25,40 +26,52 @@ class StorageContainer extends StatelessWidget {
         padding: const EdgeInsets.only(top: 25, bottom: 35),
         child: Column(
           children: [
-            Container(
-              width: 150,
-              height: 150,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 10)
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "32",
-                        style:
-                            textStyle(50, Color(0xff635C9B), FontWeight.bold),
-                      ),
-                      Text(
-                        "%",
-                        style:
-                            textStyle(17, Color(0xff635C9B), FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "Used",
-                    style: textStyle(
-                        20, textColor.withOpacity(0.7), FontWeight.bold),
-                  )
-                ],
+            InkWell(
+              onTap: () {
+                String fileType = lookupMimeType("heheuheuh.pdf");
+                print(fileType);
+                String end = "/";
+                int startIndex = 0;
+                int endIndex = fileType.indexOf(end);
+                String filetype = fileType.substring(startIndex, endIndex);
+                print(filetype);
+              },
+              child: Container(
+                width: 150,
+                height: 150,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.5), blurRadius: 10)
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "32",
+                          style:
+                              textStyle(50, Color(0xff635C9B), FontWeight.bold),
+                        ),
+                        Text(
+                          "%",
+                          style:
+                              textStyle(17, Color(0xff635C9B), FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "Used",
+                      style: textStyle(
+                          20, textColor.withOpacity(0.7), FontWeight.bold),
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(
