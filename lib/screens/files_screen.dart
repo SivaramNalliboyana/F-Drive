@@ -125,8 +125,6 @@ class FilesScreen extends StatelessWidget {
             .putFile(compressedFile);
         TaskSnapshot snapshot = await uploadTask.whenComplete(() {});
         print("Snapshot is $snapshot");
-        int size =
-            await snapshot.ref.getData().then((value) => value.lengthInBytes);
         String fileUrl = await snapshot.ref.getDownloadURL();
         userCollection
             .doc(FirebaseAuth.instance.currentUser.uid)
@@ -135,7 +133,8 @@ class FilesScreen extends StatelessWidget {
           "fileName": file.path.split('/').last,
           "fileUrl": fileUrl,
           "fileType": filteredFileType,
-          "size": size,
+          "size":
+              (compressedFile.readAsBytesSync().lengthInBytes / 1024).round(),
           "dateUploaded": DateTime.now(),
         });
       }
