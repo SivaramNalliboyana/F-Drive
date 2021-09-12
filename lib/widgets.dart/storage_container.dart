@@ -61,7 +61,7 @@ class StorageContainer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          ((controller.size.value / 5000000) * 100)
+                          ((controller.size.value / 1000000) * 100)
                               .round()
                               .toString(),
                           style:
@@ -137,7 +137,7 @@ class StorageContainer extends StatelessWidget {
                                 FontWeight.w600),
                           ),
                           Text(
-                            "5 GB",
+                            "1 GB",
                             style: textStyle(
                                 20, Color(0xff635C9B), FontWeight.w600),
                           )

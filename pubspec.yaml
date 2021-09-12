@@ -38,6 +38,7 @@ dependencies:
   flutter_image_compress:
   flutter_ffmpeg:
   video_compress:
+  url_launcher:
   flutter:
     sdk: flutter
 

@@ -103,36 +103,45 @@ class FilesScreen extends StatelessWidget {
       List<File> files = result.paths.map((path) => File(path)).toList();
 
       for (File file in files) {
+        // Getting the fileType
         String fileType = lookupMimeType(file.path);
         String end = "/";
         int startIndex = 0;
         int endIndex = fileType.indexOf(end);
         String filteredFileType = fileType.substring(startIndex, endIndex);
 
+        // Filtering file name and extension
+        String fileName = file.path.split('/').last;
+        String fileExtension = fileName.substring(fileName.indexOf('.') + 1);
+
+        // Getting compressedfile
         File compressedFile = await compressFile(file, filteredFileType);
+
+        // Getting length of the files collection
         int length = await userCollection
             .doc(FirebaseAuth.instance.currentUser.uid)
             .collection('files')
             .get()
             .then((value) => value.docs.length);
-        print("lenght is $length");
 
-        print(fileType);
+        // Uploading file to firebase storage
         UploadTask uploadTask = FirebaseStorage.instance
             .ref()
             .child('files')
             .child("File $length")
             .putFile(compressedFile);
         TaskSnapshot snapshot = await uploadTask.whenComplete(() {});
-        print("Snapshot is $snapshot");
         String fileUrl = await snapshot.ref.getDownloadURL();
+
+        // Saving data in firebase document
         userCollection
             .doc(FirebaseAuth.instance.currentUser.uid)
             .collection('files')
             .add({
-          "fileName": file.path.split('/').last,
+          "fileName": fileName,
           "fileUrl": fileUrl,
           "fileType": filteredFileType,
+          "fileExtension": fileExtension,
           "size":
               (compressedFile.readAsBytesSync().lengthInBytes / 1024).round(),
           "dateUploaded": DateTime.now(),
