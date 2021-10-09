@@ -1,5 +1,5 @@
-import 'package:fdrive/widgets.dart/storage_container.dart';
-import 'package:fdrive/widgets.dart/upload_options.dart';
+import 'package:fdrive/widgets/storage_container.dart';
+import 'package:fdrive/widgets/upload_options.dart';
 import 'package:flutter/material.dart';
 
 class StorageScreen extends StatelessWidget {

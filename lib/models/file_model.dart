@@ -6,6 +6,7 @@ class FileModel {
   String name;
   Timestamp dateUploaded;
   String fileType;
+  String fileExtension;
   int size;
 
   FileModel(this.id, this.url, this.dateUploaded, this.fileType, this.size);
@@ -17,6 +18,7 @@ class FileModel {
     name = doc.data()['fileName'];
     dateUploaded = doc.data()['dateUploaded'];
     fileType = doc.data()['fileType'];
+    fileExtension = doc.data()['fileExtension'];
     size = doc.data()['size'];
   }
 }

@@ -36,8 +36,7 @@ class RecentFiles extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            controller.recentFiles[index].fileType
-                                    .contains('image')
+                            controller.recentFiles[index].fileType == "image"
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(18),
                                     child: Image(
@@ -48,14 +47,21 @@ class RecentFiles extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     ),
                                   )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Image(
-                                      width: 65,
-                                      height: 60,
-                                      image: NetworkImage(
-                                          'https://www.nyhabitat.com/de/blog/wp-content/uploads/2013/02/Times-Square-Manhattan-New-York-NYC-Kreuzung-Welt.jpg'),
-                                      fit: BoxFit.cover,
+                                : Container(
+                                    width: 65,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.grey, width: 0.15),
+                                        borderRadius:
+                                            BorderRadius.circular(14)),
+                                    child: Center(
+                                      child: Image(
+                                          width: 42,
+                                          height: 42,
+                                          image: AssetImage(
+                                              'images/${controller.recentFiles[index].fileExtension}.png'),
+                                          fit: BoxFit.cover),
                                     ),
                                   ),
                             SizedBox(

@@ -2,7 +2,7 @@ import 'package:fdrive/controllers/navigation_controller.dart';
 import 'package:fdrive/screens/files_screen.dart';
 import 'package:fdrive/screens/storage_screen.dart';
 import 'package:fdrive/utils/utils.dart';
-import 'package:fdrive/widgets.dart/header.dart';
+import 'package:fdrive/widgets/header.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

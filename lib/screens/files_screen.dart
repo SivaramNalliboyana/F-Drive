@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:fdrive/controllers/files_screen_controller.dart';
 import 'package:fdrive/screens/nav_screen.dart';
-import 'package:fdrive/widgets.dart/folders_section.dart';
-import 'package:fdrive/widgets.dart/recent_files.dart';
+import 'package:fdrive/widgets/folders_section.dart';
+import 'package:fdrive/widgets/recent_files.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -88,7 +88,7 @@ class FilesScreen extends StatelessWidget {
         quality: VideoQuality.MediumQuality,
         deleteOrigin: false,
       );
-      print(info.filesize);
+
       return File(info.path);
     } else {
       return file;
