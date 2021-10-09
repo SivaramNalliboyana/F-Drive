@@ -39,6 +39,7 @@ dependencies:
   flutter_ffmpeg:
   video_compress:
   url_launcher:
+  audioplayers:
   flutter:
     sdk: flutter
 
