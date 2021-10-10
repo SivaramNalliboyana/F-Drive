@@ -39,7 +39,8 @@ class FilesScreenController extends GetxController {
         (QuerySnapshot query) {
           List<FolderModel> folders = [];
           query.docs.forEach((element) {
-            folders.add(FolderModel.fromDocumentSnapshot(element));
+            FolderModel folder = FolderModel.fromDocumentSnapshot(element);
+            folders.add(folder);
           });
           return folders;
         },

@@ -2,6 +2,7 @@ import 'package:fdrive/controllers/files_controller.dart';
 import 'package:fdrive/controllers/files_screen_controller.dart';
 import 'package:fdrive/screens/display_files_screen.dart';
 import 'package:fdrive/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -49,10 +50,23 @@ class FoldersSection extends StatelessWidget {
                         foldersController.foldersList[index].name,
                         style: textStyle(18, textColor, FontWeight.bold),
                       ),
-                      Text(
-                        "${foldersController.foldersList[index].items} items",
-                        style: textStyle(14, Colors.grey[400], FontWeight.bold),
-                      )
+                      FutureBuilder(
+                          future: userCollection
+                              .doc(FirebaseAuth.instance.currentUser.uid)
+                              .collection('files')
+                              .where("folder",
+                                  isEqualTo:
+                                      foldersController.foldersList[index].name)
+                              .get(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData)
+                              return CircularProgressIndicator();
+                            return Text(
+                              "${snapshot.data.docs.length} items",
+                              style: textStyle(
+                                  14, Colors.grey[400], FontWeight.bold),
+                            );
+                          })
                     ],
                   ),
                 ),

@@ -1,15 +1,34 @@
 import 'dart:core';
+import 'dart:io';
 
-import 'package:audioplayers/audioplayers.dart';
-import 'package:fdrive/models/file_model.dart';
 import 'package:fdrive/utils/utils.dart';
+import 'package:fdrive/models/file_model.dart';
 import 'package:fdrive/widgets/audio_player.dart';
 import 'package:fdrive/widgets/video_player.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ViewFileScreen extends StatelessWidget {
   FileModel file;
   ViewFileScreen(this.file);
+
+  downloadfile() async {
+    final dir = await getDownloadsDirectory();
+    final file = File("${dir.path}/File 1");
+    await filesbucket.writeToFile(file);
+  }
+
+  deleteFile() async {
+    print("Tapped");
+    await userCollection
+        .doc(FirebaseAuth.instance.currentUser.uid)
+        .collection('files')
+        .doc(file.id)
+        .delete();
+    Get.close(2);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +77,7 @@ class ViewFileScreen extends StatelessWidget {
                             height: 3,
                           ),
                           ListTile(
+                            onTap: () => downloadfile(),
                             dense: true,
                             contentPadding:
                                 EdgeInsets.only(bottom: 0, left: 16, top: 12),
@@ -74,6 +94,7 @@ class ViewFileScreen extends StatelessWidget {
                             ),
                           ),
                           ListTile(
+                            onTap: () => deleteFile(),
                             dense: true,
                             contentPadding:
                                 EdgeInsets.only(top: 8, left: 16, bottom: 12),
