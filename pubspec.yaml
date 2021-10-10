@@ -40,6 +40,9 @@ dependencies:
   video_compress:
   url_launcher:
   audioplayers:
+  chewie:
+  video_player:
+  flutter_downloader:
   flutter:
     sdk: flutter
 

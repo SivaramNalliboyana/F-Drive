@@ -83,11 +83,11 @@ class FilesScreen extends StatelessWidget {
           quality: 75);
       return result;
     } else if (fileType == 'video') {
-      final info = await VideoCompress.compressVideo(
-        file.path,
-        quality: VideoQuality.MediumQuality,
-        deleteOrigin: false,
-      );
+      final info = await VideoCompress.compressVideo(file.path,
+          quality: VideoQuality.MediumQuality,
+          deleteOrigin: false,
+          includeAudio: true);
+      print(info.file);
 
       return File(info.path);
     } else {
