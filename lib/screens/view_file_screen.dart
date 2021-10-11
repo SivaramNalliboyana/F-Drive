@@ -49,20 +49,15 @@ class ViewFileScreen extends StatelessWidget {
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ListTile(
-                            leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image(
-                                width: 32,
-                                height: 32,
-                                image: NetworkImage(file.url),
-                                fit: BoxFit.cover,
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                file.name,
+                                style: textStyle(
+                                    16, Colors.black, FontWeight.w500),
                               ),
-                            ),
-                            title: Text(
-                              file.name,
-                              style:
-                                  textStyle(16, Colors.black, FontWeight.w500),
                             ),
                           ),
                           Divider(

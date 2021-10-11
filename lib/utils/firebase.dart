@@ -5,11 +5,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:video_compress/video_compress.dart';
 
@@ -105,5 +107,20 @@ class FirebaseService {
         .collection('files')
         .doc(file.id)
         .delete();
+  }
+
+  downloadFile(FileModel file) async {
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      final basestorage = await getExternalStorageDirectory();
+      final int = await FlutterDownloader.enqueue(
+        url: file.url,
+        savedDir: basestorage.path,
+        fileName: file.name,
+        showNotification: true,
+        openFileFromNotification: true,
+      );
+    } else
+      print("No permission");
   }
 }

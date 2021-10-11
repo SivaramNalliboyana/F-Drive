@@ -112,7 +112,84 @@ class DisplayFilesScreen extends StatelessWidget {
                               IconButton(
                                 icon: Icon(Icons.more_vert,
                                     color: Colors.black, size: 20),
-                                onPressed: () {},
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(8),
+                                      ),
+                                    ),
+                                    builder: (context) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: Text(
+                                                controller.files[index].name,
+                                                style: textStyle(
+                                                    16,
+                                                    Colors.black,
+                                                    FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                          Divider(
+                                            color: Colors.grey,
+                                            height: 3,
+                                          ),
+                                          ListTile(
+                                            onTap: () {
+                                              firebaseService.downloadFile(
+                                                  controller.files[index]);
+                                              Get.back();
+                                            },
+                                            dense: true,
+                                            contentPadding: EdgeInsets.only(
+                                                bottom: 0, left: 16, top: 12),
+                                            visualDensity: VisualDensity(
+                                                horizontal: 0, vertical: -4),
+                                            leading: Icon(
+                                              Icons.file_download,
+                                              color: Colors.grey,
+                                            ),
+                                            title: Text(
+                                              "Download",
+                                              style: textStyle(16, Colors.black,
+                                                  FontWeight.w500),
+                                            ),
+                                          ),
+                                          ListTile(
+                                            onTap: () {
+                                              firebaseService.deleteFile(
+                                                  controller.files[index]);
+                                              Get.back();
+                                            },
+                                            dense: true,
+                                            contentPadding: EdgeInsets.only(
+                                                top: 8, left: 16, bottom: 12),
+                                            visualDensity: VisualDensity(
+                                                horizontal: 0, vertical: -4),
+                                            leading: Icon(
+                                              Icons.delete,
+                                              color: Colors.grey,
+                                              size: 22,
+                                            ),
+                                            title: Text(
+                                              "Remove",
+                                              style: textStyle(16, Colors.black,
+                                                  FontWeight.w500),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ],
                           ),
