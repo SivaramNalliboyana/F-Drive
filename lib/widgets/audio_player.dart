@@ -35,10 +35,10 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> {
     }
 
     audioPlayer.onDurationChanged.listen((Duration dd) {
-      setState(() => duration = dd);
+      if (mounted) setState(() => duration = dd);
     });
     audioPlayer.onAudioPositionChanged.listen((Duration dd) {
-      setState(() => position = dd);
+      if (mounted) setState(() => position = dd);
     });
   }
 

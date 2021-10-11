@@ -8,8 +8,8 @@ class UploadOptions extends StatelessWidget {
   Widget colouredContainer(
       Color bgcolor, Icon icon, String option, String title) {
     return InkWell(
-      onTap: () => Get.to(() => DisplayFilesScreen(title),
-          binding: FilesBinding("Files", option)),
+      onTap: () => Get.to(() => DisplayFilesScreen(title, "files"),
+          binding: FilesBinding("Files", null, option)),
       child: Container(
         width: 50,
         height: 50,

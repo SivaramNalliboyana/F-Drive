@@ -23,9 +23,11 @@ class FoldersSection extends StatelessWidget {
               return InkWell(
                 onTap: () => Get.to(
                     () => DisplayFilesScreen(
-                        foldersController.foldersList[index].name),
+                        foldersController.foldersList[index].name, "folder"),
                     binding: FilesBinding(
-                        "Folders", foldersController.foldersList[index].name)),
+                        "Folders",
+                        foldersController.foldersList[index].name,
+                        foldersController.foldersList[index].name)),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -50,14 +52,14 @@ class FoldersSection extends StatelessWidget {
                         foldersController.foldersList[index].name,
                         style: textStyle(18, textColor, FontWeight.bold),
                       ),
-                      FutureBuilder(
-                          future: userCollection
+                      StreamBuilder(
+                          stream: userCollection
                               .doc(FirebaseAuth.instance.currentUser.uid)
                               .collection('files')
                               .where("folder",
                                   isEqualTo:
                                       foldersController.foldersList[index].name)
-                              .get(),
+                              .snapshots(),
                           builder: (context, snapshot) {
                             if (!snapshot.hasData)
                               return CircularProgressIndicator();

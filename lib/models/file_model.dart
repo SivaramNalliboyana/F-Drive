@@ -7,9 +7,11 @@ class FileModel {
   Timestamp dateUploaded;
   String fileType;
   String fileExtension;
+  String folderName;
   int size;
 
-  FileModel(this.id, this.url, this.dateUploaded, this.fileType, this.size);
+  FileModel(this.id, this.url, this.dateUploaded, this.fileType,
+      this.folderName, this.size);
 
   FileModel.fromDocumentSnapshot(
       QueryDocumentSnapshot<Map<String, dynamic>> doc) {
@@ -19,6 +21,7 @@ class FileModel {
     dateUploaded = doc.data()['dateUploaded'];
     fileType = doc.data()['fileType'];
     fileExtension = doc.data()['fileExtension'];
+    folderName = doc.data()['folder'];
     size = doc.data()['size'];
   }
 }

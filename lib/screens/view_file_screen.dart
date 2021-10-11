@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:io';
 
+import 'package:fdrive/utils/firebase.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:fdrive/models/file_model.dart';
 import 'package:fdrive/widgets/audio_player.dart';
@@ -14,20 +15,12 @@ class ViewFileScreen extends StatelessWidget {
   FileModel file;
   ViewFileScreen(this.file);
 
+  FirebaseService firebaseService = FirebaseService();
+
   downloadfile() async {
     final dir = await getDownloadsDirectory();
     final file = File("${dir.path}/File 1");
     await filesbucket.writeToFile(file);
-  }
-
-  deleteFile() async {
-    print("Tapped");
-    await userCollection
-        .doc(FirebaseAuth.instance.currentUser.uid)
-        .collection('files')
-        .doc(file.id)
-        .delete();
-    Get.close(2);
   }
 
   @override
@@ -94,7 +87,10 @@ class ViewFileScreen extends StatelessWidget {
                             ),
                           ),
                           ListTile(
-                            onTap: () => deleteFile(),
+                            onTap: () {
+                              firebaseService.deleteFile(file);
+                              Get.close(2);
+                            },
                             dense: true,
                             contentPadding:
                                 EdgeInsets.only(top: 8, left: 16, bottom: 12),

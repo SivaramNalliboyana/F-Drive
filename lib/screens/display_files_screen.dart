@@ -1,15 +1,17 @@
 import 'package:fdrive/controllers/files_controller.dart';
 import 'package:fdrive/screens/view_file_screen.dart';
+import 'package:fdrive/utils/firebase.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DisplayFilesScreen extends StatelessWidget {
   final String title;
-  DisplayFilesScreen(this.title);
+  final String type;
+  DisplayFilesScreen(this.title, this.type);
 
   FilesController controller = Get.find<FilesController>();
+  FirebaseService firebaseService = FirebaseService();
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,25 @@ class DisplayFilesScreen extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButton: InkWell(
+        onTap: () => type == "folder"
+            ? firebaseService.uploadFile(title)
+            : firebaseService.uploadFile(null),
+        child: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+              color: Colors.redAccent[200],
+              borderRadius: BorderRadius.circular(10)),
+          child: Center(
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 32,
+            ),
+          ),
+        ),
+      ),
       body: Obx(() => GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, childAspectRatio: 1.25),
@@ -43,7 +64,6 @@ class DisplayFilesScreen extends StatelessWidget {
                   onTap: () => Get.to(ViewFileScreen(controller.files[index])),
                   child: Container(
                     width: MediaQuery.of(context).size.width / 2,
-                    height: 100,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -55,13 +75,13 @@ class DisplayFilesScreen extends StatelessWidget {
                                       NetworkImage(controller.files[index].url),
                                   width:
                                       MediaQuery.of(context).size.width / 2.5,
-                                  height: 80,
+                                  height: 75,
                                   fit: BoxFit.cover,
                                 ),
                               )
                             : Container(
                                 width: MediaQuery.of(context).size.width / 2.5,
-                                height: 80,
+                                height: 75,
                                 decoration: BoxDecoration(
                                     border: Border.all(
                                         color: Colors.grey, width: 0.2),
@@ -91,7 +111,7 @@ class DisplayFilesScreen extends StatelessWidget {
                               ),
                               IconButton(
                                 icon: Icon(Icons.more_vert,
-                                    color: Colors.black, size: 22),
+                                    color: Colors.black, size: 20),
                                 onPressed: () {},
                               ),
                             ],

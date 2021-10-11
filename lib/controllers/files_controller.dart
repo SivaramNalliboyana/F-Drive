@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 
 class FilesController extends GetxController {
   final String type;
+  final String foldername;
   final String fileType;
-  FilesController(this.type, this.fileType);
+  FilesController(this.type, this.foldername, this.fileType);
 
   String uid = FirebaseAuth.instance.currentUser.uid;
   RxList<FileModel> files = <FileModel>[].obs;
@@ -38,10 +39,8 @@ class FilesController extends GetxController {
       files.bindStream(
         userCollection
             .doc(uid)
-            .collection('folders')
-            .doc(fileType)
             .collection('files')
-            .orderBy('dateUploaded', descending: true)
+            .where('folder', isEqualTo: foldername)
             .snapshots()
             .map(
           (QuerySnapshot query) {
@@ -59,11 +58,13 @@ class FilesController extends GetxController {
 
 class FilesBinding extends Bindings {
   final String type;
+  final String foldername;
   final String fileType;
-  FilesBinding(this.type, this.fileType);
+  FilesBinding(this.type, this.foldername, this.fileType);
 
   @override
   void dependencies() {
-    Get.lazyPut<FilesController>(() => FilesController(type, fileType));
+    Get.lazyPut<FilesController>(
+        () => FilesController(type, this.foldername, fileType));
   }
 }
