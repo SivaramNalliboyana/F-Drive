@@ -65,7 +65,10 @@ class ViewFileScreen extends StatelessWidget {
                             height: 3,
                           ),
                           ListTile(
-                            onTap: () => downloadfile(),
+                            onTap: () {
+                              downloadfile();
+                              Get.close(2);
+                            },
                             dense: true,
                             contentPadding:
                                 EdgeInsets.only(bottom: 0, left: 16, top: 12),

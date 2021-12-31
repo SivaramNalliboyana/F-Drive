@@ -1,10 +1,6 @@
-import 'dart:isolate';
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 
 class StorageController extends GetxController {
