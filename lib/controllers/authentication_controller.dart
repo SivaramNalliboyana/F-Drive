@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController extends GetxController {
   FirebaseAuth auth = FirebaseAuth.instance;
   GoogleSignIn googleSignin = GoogleSignIn();
-  Rx<User> user = Rx<User>(null);
+  Rx<User?> user = Rx<User?>(FirebaseAuth.instance.currentUser);
 
   @override
   void onInit() {
@@ -15,18 +15,21 @@ class AuthController extends GetxController {
   }
 
   login() async {
-    GoogleSignInAccount googleUser = await googleSignin.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-
-    UserCredential userCredential = await auth.signInWithCredential(credential);
-    userCollection.doc(userCredential.user.uid).set({
-      "username": userCredential.user.displayName,
-      "profilepic": userCredential.user.photoURL,
-      "email": userCredential.user.email,
-      "uid": userCredential.user.uid,
-      "userCreated": DateTime.now()
-    });
+    GoogleSignInAccount? googleUser = await googleSignin.signIn();
+    if (googleUser != null) {
+      GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
+      UserCredential userCredential =
+          await auth.signInWithCredential(credential);
+      User? user = userCredential.user!;
+      userCollection.doc(user.uid).set({
+        "username": user.displayName,
+        "profilepic": user.photoURL,
+        "email": user.email,
+        "uid": user.uid,
+        "userCreated": DateTime.now()
+      });
+    }
   }
 }

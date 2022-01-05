@@ -10,7 +10,7 @@ class FilesController extends GetxController {
   final String fileType;
   FilesController(this.type, this.foldername, this.fileType);
 
-  String uid = FirebaseAuth.instance.currentUser.uid;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   RxList<FileModel> files = <FileModel>[].obs;
 
   @override
@@ -27,7 +27,8 @@ class FilesController extends GetxController {
             .map(
           (QuerySnapshot query) {
             List<FileModel> files = [];
-            query.docs.forEach((element) {
+            List<QueryDocumentSnapshot<Object?>> docslist = query.docs;
+            docslist.forEach((element) {
               files.add(FileModel.fromDocumentSnapshot(element));
             });
 

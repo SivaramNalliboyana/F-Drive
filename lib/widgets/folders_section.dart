@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fdrive/controllers/files_controller.dart';
 import 'package:fdrive/controllers/files_screen_controller.dart';
 import 'package:fdrive/screens/display_files_screen.dart';
@@ -52,9 +53,9 @@ class FoldersSection extends StatelessWidget {
                         foldersController.foldersList[index].name,
                         style: textStyle(18, textColor, FontWeight.bold),
                       ),
-                      StreamBuilder(
+                      StreamBuilder<QuerySnapshot>(
                           stream: userCollection
-                              .doc(FirebaseAuth.instance.currentUser.uid)
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
                               .collection('files')
                               .where("folder",
                                   isEqualTo:
@@ -64,9 +65,9 @@ class FoldersSection extends StatelessWidget {
                             if (!snapshot.hasData)
                               return CircularProgressIndicator();
                             return Text(
-                              "${snapshot.data.docs.length} items",
+                              "${snapshot.data!.docs.length} items",
                               style: textStyle(
-                                  14, Colors.grey[400], FontWeight.bold),
+                                  14, Colors.grey[400]!, FontWeight.bold),
                             );
                           })
                     ],

@@ -19,72 +19,67 @@ class RecentFiles extends StatelessWidget {
         SizedBox(height: 15),
         GetX<FilesScreenController>(
             builder: (FilesScreenController controller) {
-          if (controller != null && controller.foldersList != null) {
-            return Container(
-              height: 100,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: controller.recentFiles.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 13.0),
-                    child: InkWell(
-                      onTap: () =>
-                          Get.to(ViewFileScreen(controller.recentFiles[index])),
-                      child: Container(
-                        width: 65,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            controller.recentFiles[index].fileType == "image"
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(18),
-                                    child: Image(
-                                      width: 65,
-                                      height: 60,
-                                      image: NetworkImage(
-                                          controller.recentFiles[index].url),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : Container(
+          return Container(
+            height: 100,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.recentFiles.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 13.0),
+                  child: InkWell(
+                    onTap: () =>
+                        Get.to(ViewFileScreen(controller.recentFiles[index])),
+                    child: Container(
+                      width: 65,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          controller.recentFiles[index].fileType == "image"
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(18),
+                                  child: Image(
                                     width: 65,
                                     height: 60,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.grey, width: 0.15),
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                    child: Center(
-                                      child: Image(
-                                          width: 42,
-                                          height: 42,
-                                          image: AssetImage(
-                                              'images/${controller.recentFiles[index].fileExtension}.png'),
-                                          fit: BoxFit.cover),
-                                    ),
+                                    image: NetworkImage(
+                                        controller.recentFiles[index].url),
+                                    fit: BoxFit.cover,
                                   ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(controller.recentFiles[index].name,
-                                style: textStyle(
-                                  13,
-                                  textColor,
-                                  FontWeight.w500,
+                                )
+                              : Container(
+                                  width: 65,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey, width: 0.15),
+                                      borderRadius: BorderRadius.circular(14)),
+                                  child: Center(
+                                    child: Image(
+                                        width: 42,
+                                        height: 42,
+                                        image: AssetImage(
+                                            'images/${controller.recentFiles[index].fileExtension}.png'),
+                                        fit: BoxFit.cover),
+                                  ),
                                 ),
-                                overflow: TextOverflow.ellipsis)
-                          ],
-                        ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(controller.recentFiles[index].name,
+                              style: textStyle(
+                                13,
+                                textColor,
+                                FontWeight.w500,
+                              ),
+                              overflow: TextOverflow.ellipsis)
+                        ],
                       ),
                     ),
-                  );
-                },
-              ),
-            );
-          } else {
-            return Text("Loading...");
-          }
+                  ),
+                );
+              },
+            ),
+          );
         }),
       ],
     );

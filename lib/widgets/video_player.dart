@@ -11,8 +11,8 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  VideoPlayerController videoPlayerController;
-  ChewieController chewieController;
+  late VideoPlayerController videoPlayerController;
+  late ChewieController chewieController;
   bool initialized = false;
 
   initState() {

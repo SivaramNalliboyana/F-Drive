@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class StorageController extends GetxController {
-  String uid = FirebaseAuth.instance.currentUser.uid;
+  String uid = FirebaseAuth.instance.currentUser!.uid;
   RxInt size = 0.obs;
 
   @override
@@ -28,7 +28,7 @@ class StorageController extends GetxController {
     );
   }
 
-  extractSize(QueryDocumentSnapshot<Map<String, dynamic>> element) {
-    return element.data()['size'];
+  int extractSize(QueryDocumentSnapshot<Object?> element) {
+    return element['size'];
   }
 }

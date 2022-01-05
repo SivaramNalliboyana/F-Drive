@@ -37,7 +37,7 @@ class DisplayFilesScreen extends StatelessWidget {
       floatingActionButton: InkWell(
         onTap: () => type == "folder"
             ? firebaseService.uploadFile(title)
-            : firebaseService.uploadFile(null),
+            : firebaseService.uploadFile(''),
         child: Container(
           width: 40,
           height: 40,

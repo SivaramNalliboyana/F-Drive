@@ -22,36 +22,36 @@ class FirebaseService {
     if (fileType == 'image') {
       Directory directory = await getTemporaryDirectory();
       String targetpath = directory.path + "/${uuid.v4().substring(0, 8)}.jpg";
-      File result = await FlutterImageCompress.compressAndGetFile(
+      File? result = await FlutterImageCompress.compressAndGetFile(
           file.path, targetpath,
           quality: 75);
-      return result;
+      return result!;
     } else if (fileType == 'video') {
-      final info = await VideoCompress.compressVideo(file.path,
+      MediaInfo? info = await VideoCompress.compressVideo(file.path,
           quality: VideoQuality.MediumQuality,
           deleteOrigin: false,
           includeAudio: true);
-      print(info.file);
+      print(info!.file);
 
-      return File(info.path);
+      return File(info.path!);
     } else {
       return file;
     }
   }
 
   uploadFile(String foldername) async {
-    FilePickerResult result =
+    FilePickerResult? result =
         await FilePicker.platform.pickFiles(allowMultiple: true);
 
     if (result != null) {
-      List<File> files = result.paths.map((path) => File(path)).toList();
+      List<File> files = result.paths.map((path) => File(path!)).toList();
 
       for (File file in files) {
         // Getting the fileType
-        String fileType = lookupMimeType(file.path);
+        String? fileType = lookupMimeType(file.path);
         String end = "/";
         int startIndex = 0;
-        int endIndex = fileType.indexOf(end);
+        int endIndex = fileType!.indexOf(end);
         String filteredFileType = fileType.substring(startIndex, endIndex);
 
         // Filtering file name and extension
@@ -63,7 +63,7 @@ class FirebaseService {
 
         // Getting length of the files collection
         int length = await userCollection
-            .doc(FirebaseAuth.instance.currentUser.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('files')
             .get()
             .then((value) => value.docs.length);
@@ -79,7 +79,7 @@ class FirebaseService {
 
         // Saving data in firebase document
         userCollection
-            .doc(FirebaseAuth.instance.currentUser.uid)
+            .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('files')
             .add({
           "fileName": fileName,
@@ -92,7 +92,7 @@ class FirebaseService {
           "dateUploaded": DateTime.now(),
         });
       }
-      if (foldername == null) Get.back();
+      if (foldername == '') Get.back();
     } else {
       print("Cancelled");
     }
@@ -100,7 +100,7 @@ class FirebaseService {
 
   deleteFile(FileModel file) async {
     await userCollection
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('files')
         .doc(file.id)
         .delete();

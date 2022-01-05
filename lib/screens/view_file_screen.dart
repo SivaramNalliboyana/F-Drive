@@ -19,7 +19,7 @@ class ViewFileScreen extends StatelessWidget {
 
   downloadfile() async {
     final dir = await getDownloadsDirectory();
-    final file = File("${dir.path}/File 1");
+    final file = File("${dir!.path}/File 1");
     await filesbucket.writeToFile(file);
   }
 

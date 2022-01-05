@@ -52,7 +52,7 @@ class FilesScreen extends StatelessWidget {
             InkWell(
               onTap: () {
                 userCollection
-                    .doc(FirebaseAuth.instance.currentUser.uid)
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
                     .collection('folders')
                     .add(
                   {'name': folderController.text, 'time': DateTime.now()},
@@ -124,7 +124,7 @@ class FilesScreen extends StatelessWidget {
                                   ),
                                 ),
                                 InkWell(
-                                  onTap: () => firebaseService.uploadFile(null),
+                                  onTap: () => firebaseService.uploadFile(''),
                                   child: Row(
                                     children: [
                                       Text(
