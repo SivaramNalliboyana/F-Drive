@@ -1,14 +1,18 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
+import 'package:fdrive/controllers/files_controller.dart';
 import 'package:fdrive/models/file_model.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:uuid/uuid.dart';
 import 'package:video_compress/video_compress.dart';
 
@@ -107,6 +111,37 @@ class FirebaseService {
   }
 
   downloadFile(FileModel file) async {
-    final basestorage = await getExternalStorageDirectory();
+    try {
+      final downloadpath = await getDownloadPath();
+      final path = "$downloadpath/${file.name.replaceAll(" ", "")}";
+      var status = await Permission.storage.status;
+      if (!status.isGranted) {
+        await Permission.storage.request();
+      }
+      await Dio().download(file.url, path);
+
+      print("Success");
+    } catch (e) {
+      print(e);
+    }
   }
+}
+
+Future<String?> getDownloadPath() async {
+  Directory? directory;
+  try {
+    if (Platform.isIOS) {
+      directory = await getApplicationDocumentsDirectory();
+    } else {
+      directory = Directory('/storage/emulated/0/Download');
+      // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
+      // ignore: avoid_slow_async_io
+      if (!await directory.exists())
+        directory = await getExternalStorageDirectory();
+    }
+  } catch (err, stack) {
+    print("Cannot get download folder path");
+  }
+  print(directory?.path);
+  return directory?.path;
 }

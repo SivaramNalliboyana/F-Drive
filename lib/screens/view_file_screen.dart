@@ -5,23 +5,19 @@ import 'package:fdrive/utils/firebase.dart';
 import 'package:fdrive/utils/utils.dart';
 import 'package:fdrive/models/file_model.dart';
 import 'package:fdrive/widgets/audio_player.dart';
+import 'package:fdrive/widgets/pdf_viewer.dart';
 import 'package:fdrive/widgets/video_player.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
 
 class ViewFileScreen extends StatelessWidget {
   FileModel file;
   ViewFileScreen(this.file);
 
   FirebaseService firebaseService = FirebaseService();
-
-  downloadfile() async {
-    final dir = await getDownloadsDirectory();
-    final file = File("${dir!.path}/File 1");
-    await filesbucket.writeToFile(file);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +62,8 @@ class ViewFileScreen extends StatelessWidget {
                           ),
                           ListTile(
                             onTap: () {
-                              downloadfile();
-                              Get.close(2);
+                              firebaseService.deleteFile(file);
+                              Get.back();
                             },
                             dense: true,
                             contentPadding:
@@ -118,7 +114,7 @@ class ViewFileScreen extends StatelessWidget {
         body: file.fileType == "image"
             ? showImage(file.url)
             : file.fileType == "application"
-                ? showFile(file.url)
+                ? showFile(file, context)
                 : file.fileType == "video"
                     ? VideoPlayerWidget(file.url)
                     : file.fileType == "audio"
@@ -135,6 +131,40 @@ showImage(String url) {
   );
 }
 
-showFile(String url) {}
+showFile(FileModel file, context) {
+  if (file.fileExtension == "pdf") {
+    return PdfViewer(file);
+  } else {
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Unfortunately this file cannot be opened",
+            style: textStyle(18, Colors.white, FontWeight.w700),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width / 2,
+            height: 36,
+            child: TextButton(
+                onPressed: () => FirebaseService().downloadFile(file),
+                style: TextButton.styleFrom(
+                    backgroundColor: Colors.lightBlueAccent),
+                child: Center(
+                  child: Text(
+                    "Download",
+                    style: textStyle(17, Colors.white, FontWeight.w600),
+                  ),
+                )),
+          )
+        ],
+      ),
+    );
+  }
+}
 
 showError() {}
