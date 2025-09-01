@@ -7,5 +7,8 @@
   for managing file metadata, user details, and sharing information.
 </p>
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SivaramNalliboyana/F-Drive/refs/heads/main/Course%20thumbnail-half.png" width="400">
+</p>
 
-
+<!-- BLANK LINE ABOVE IS CRITICAL -->
