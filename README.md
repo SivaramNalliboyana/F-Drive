@@ -1,5 +1,6 @@
 # Driveeee
 
+
 <p align="center">
   Google Drive clone using Flutter for the front-end and Firebase as the backend service.<br>
   The app allows users to sign up, log in, and manage files securely with Firebase Authentication.<br>
@@ -12,3 +13,11 @@
 </p>
 
 <!-- BLANK LINE ABOVE IS CRITICAL -->
+
+## Features
+
+- [x] User Authentication with Firebase (email/password, Google sign-in)
+- [x] File Upload & Download
+- [x] File Management (create, delete, preview)
+- [x] Responsive UI built with Flutter for a smooth cross-platform experience
+- [x] PDFs, MP3, MP4, Images, Documents, GIFs... all files supported
